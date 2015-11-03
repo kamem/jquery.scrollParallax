@@ -11,7 +11,7 @@
 
 ## DEMO
 
-* [y scroll](https://github.develo.org/jquery.scrollParallax/example/y.html)
+* [y scroll](http://github.develo.org/jquery.scrollParallax/example/y.html)
 
 ## Requirement
 
@@ -240,7 +240,7 @@ classは任意の値を入れてください。
 	
 ## License
 
-The license is available within the repository in the [LICENSE](https://github.com/kamem/blob/master/jquery.scrollParallax/LICENSE.txt) file.
+The license is available within the repository in the [LICENSE](https://github.com/kamem/jquery.scrollParallax/blob/master/LICENSE.txt) file.
 
 ## Author
 
