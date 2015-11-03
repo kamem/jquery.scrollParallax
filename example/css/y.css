@@ -1,0 +1,273 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+li {
+    list-style-type: none;
+}
+
+#header, #main, #footer {
+    overflow: hidden;
+    position: relative;
+}
+
+#header.on, #main.on, #footer.on {}
+
+.box {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(yellow), to(green));
+    background-image: -webkit-linear-gradient(yellow, green);
+    background-image: -moz-linear-gradient(yellow, green);
+    background-image: -o-linear-gradient(yellow, green);
+    background-image: linear-gradient(yellow, green);
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 150px;
+}
+
+.box2 {
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    
+    top: 20px;
+    right: 30px;
+}
+
+#header {
+    height: 100%;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(100,200,200)), to(rgb(40,200,200)));
+    background-image: -webkit-linear-gradient(rgb(100,200,200), rgb(40,200,200));
+    background-image: -moz-linear-gradient(rgb(100,200,200), rgb(40,200,200));
+    background-image: -o-linear-gradient(rgb(100,200,200), rgb(40,200,200));
+    background-image: linear-gradient(rgb(100,200,200), rgb(40,200,200));
+}
+
+#header .nav {
+    margin: auto 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 20px;
+    z-index: 10;
+    height: 130px;
+}
+
+#header .nav li {
+    background-color: #fff;
+    width: 10px;
+    height: 10px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+#header .nav li:last-child {
+    margin-bottom: 0;
+}
+
+#header .nav li.on {
+    background-color: #3399cc;
+}
+
+#header .description, #header .title {
+    margin: auto;
+    color: white;
+    text-align: center;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-weight: normal;
+    letter-spacing: 1px;
+    font-size: 2rem;
+    z-index: 1;
+}
+
+#header .description {
+    top: 6rem;
+    font-size: 1rem;
+}
+
+#header .parallaxContent li {
+    margin: auto;
+    width: 850px;
+    height: 850px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: aliceblue;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    opacity: 0.2;
+}
+
+#header .parallaxContent li:nth-child(1) {
+    left: 30px;
+    top: 30px;
+}
+
+#header .parallaxContent li:nth-child(2) {
+    left: -30px;
+    top: -30px;
+}
+
+#main {
+    height: 300%;
+}
+
+#main section {
+    height: 33%;
+    overflow: hidden;
+    position: relative;
+}
+
+#main section h2 {
+    color : #fff;
+    text-align: center;
+    font-weight: normal;
+    font-size: 2em;
+    margin: 2.5rem;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    height: 1em;
+}
+
+#main #timing {
+    background-color: #F5F0CF;
+}
+
+#main #timing .parallaxContent > * {
+    width: 600px;
+    height: 600px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    position: absolute;
+    background-color: orange;
+}
+
+#main #timing .parallaxContent > *:first-child {
+    top: -10%;
+    left: -20%;
+}
+
+#main #timing .parallaxContent > *:nth-child(2) {
+    top: 15%;
+    left: 10%;
+}
+
+#main #timing .parallaxContent > *:nth-child(3) {
+    top: 0;
+    right: 10%;
+}
+
+#main #timing .parallaxContent > *:last-child {
+    top: -5%;
+    right: -15%;
+}
+
+#main #timing .parallaxContent {
+    opacity: 0;
+    -webkit-transition-property: opacity;
+    -moz-transition-property: opacity;
+    -o-transition-property: opacity;
+    transition-property: opacity;
+    -webkit-transition-duration:0.5s;
+    -moz-transition-duration:0.5s;
+    -o-transition-duration:0.5s;
+    transition-duration:0.5s;
+    -webkit-transition-timing-function:ease-in-out;
+    -moz-transition-timing-function:ease-in-out;
+    -o-transition-timing-function:ease-in-out;
+    transition-timing-function:ease-in-out;
+}
+
+#main #timing.on .parallaxContent {
+    opacity: 1;
+}
+
+#main #speed {
+    background-image: url(../img/img.png);
+    background-position: 0 0;
+    position: relative;
+}
+
+#main #fit {
+    background-color: #2DADAC;
+    height: 35%;
+}
+
+#main #fit .parallaxContent {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: -100px;
+    left: -20%;
+    width: 80%;
+    height: 330px;
+}
+
+#main #fit .parallaxContent li {
+    height: 110px;
+    background: #fff;
+    width: 1px;
+}
+
+#main #fit .parallaxContent li:first-child {
+    background: #fdc;
+}
+
+#main #fit .parallaxContent li:nth-child(2) {
+    background: #df8;
+}
+
+#main #fit .parallaxContent li:nth-child(3) {
+    background: #cfd;
+}
+
+#footer {
+    height: 100%;
+    background-color: #452C0A;
+    color: #fff;
+}
+
+#footer ul {
+    height: 2em;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+#footer ul a {
+    color: white;
+}

@@ -1,0 +1,14 @@
+#file ignore
+Thumbs.db
+.Ds_Store
+nodemon.json
+
+Gemfile.lock
+#directory ignore
+.sass-cache/
+.idea/
+node_modules/
+bower_components/
+vendor/
+
+root/

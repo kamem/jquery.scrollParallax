@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>parallax</title>
+	<link rel="stylesheet" href="css/y.css">
+</head>
+<body>
+
+<header id="header" class="parallax-speed" data-speed="-3" data-style="background-image" data-min="[[40,150,180,100,200,200]]">
+	<h1 class="title parallax-speed" data-speed="20" data-max="20" data-style="letter-spacing">jquery.scrollParallax</h1>
+	<p class="description">Implementing parallax effect by utilizing various events of scroll.</p>
+
+	<p class="parallax-fit box"
+		 data-start="0"
+		 data-end="200"
+		 data-from-style="{
+  	'-webkit-filter': 'blur(0px)',
+	 'background-color': 'rgb(200,10,100)',
+	 'transform':'rotate(0deg) scale(1)'
+	 }"
+		 data-to-style="{
+	   	'-webkit-filter': 'blur(30px)',
+	 'background-color': 'rgb(0,0,255)',
+	 'transform':'rotate(380deg) scale(0.2)'
+	 }"
+		 data-easing="easeInOutBack">
+	</p>
+
+	<nav>
+		<ul class="nav">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</nav>
+
+	<ul class="parallaxContent">
+		<li class="parallax-speed" data-speed="[-3, 3, -1000]" data-style="['left', 'top', 'opacity']"></li>
+		<li class="parallax-speed" data-speed="[-3, 3, -1000]" data-style="['left', 'top', 'opacity']"></li>
+	</ul>
+</header>
+
+<main id="main" class="timing">
+	<section id="timing">
+		<h2>scrollTiming</h2>
+		<ul class="parallaxContent">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</section>
+	<section id="speed" class="parallax-speed" data-style="background-position" data-speed="[[3,2]]">
+		<h2>scrollSeed</h2>
+	</section>
+	<section id="fit">
+		<h2>scrollFit</h2>
+
+		<ul class="parallaxContent">
+			<li class="parallax-fit" data-start="#fit,-500" data-end="#fit" data-from-style="{'width': '0px'}" data-to-style="{'width': '800px'}" data-easing="easeInOutBack"></li>
+			<li class="parallax-fit" data-start="#fit,-400" data-end="#fit" data-from-style="{'width': '0px'}" data-to-style="{'width': '700px'}" data-easing="easeInOutBack"></li>
+			<li class="parallax-fit" data-start="#fit,-300" data-end="#fit" data-from-style="{'width': '0px'}" data-to-style="{'width': '600px'}" data-easing="easeInOutBack"></li>
+		</ul>
+	</section>
+</main>
+
+<footer id="footer">
+	<ul>
+		<li>License: <small>The license is available within the repository in the <a href="https://github.com/kamem/blob/master/jquery.scrollParallax/LICENSE.txt">LICENSE</a> file.</small></li>
+		<li>Author: <a href="https://github.com/kamem">kamem</a> <a href="https://twitter.com/kamem">@kamem</a>
+		</li>
+	</ul>
+
+	<p class="box2"></p>
+</footer>
+
+<script src="./js/jquery.js"></script>
+<script src="../dist/js/jquery.scrollParallax.js"></script>
+<script src="./js/jquery.dataExtend.js"></script>
+<script>
+$('.parallax-timing').dataExtend('parallaxTiming');
+$('.parallax-speed').dataExtend('parallaxSpeed');
+$('.parallax-fit').dataExtend('parallaxFit');
+
+$.parallax({
+	debugMode: true
+});
+
+/* Nav */
+var parallaxMain = (function() {
+	var $contents = $('#header, #timing, #speed, #fit, #footer');
+	var $nav = $('.nav > *');
+
+	$contents.each(function(){
+		$(this).parallaxTiming({
+			start: selectNav,
+			end: selectNav
+		})
+	});
+
+	function selectNav(e) {
+		var index = $contents.index(e.target) + (e.isOver ? 0 : -1);
+		$nav.removeClass('on').eq(index).addClass('on');
+		$contents.removeClass('on').eq(index).addClass('on');
+
+		console.log({id: e.target[0].id,isOver: e.isOver});
+	}
+})();
+
+
+/* fit js motions */
+$('.box2').parallaxFit({
+	start: 0,
+	end: 200,
+	fromStyle: {
+		backgroundImage: 'linear-gradient(yellow, green)'
+	},
+	toStyle: {
+		backgroundImage: 'linear-gradient(rgb(155,0,105),rgb(10,0,155))'
+	},
+	easing: 'easeInOutBack',
+
+	//-----
+	motion1End: 500,
+	motion1ToStyle: {
+		backgroundImage: 'linear-gradient(rgb(100,0,105),rgb(100,0,155))'
+	},
+	motion1Easing: 'easeInOutBack',
+
+	//-----
+	motion2End: 1000,
+	motion2FromStyle: {
+		transform: 'rotate(0deg) scale(1)',
+		backgroundImage: 'linear-gradient(rgba(155,0,105,1),rgba(10,0,155,1))'
+	},
+	motion2ToStyle: {
+		transform: 'rotate(180deg) scale(3)',
+		backgroundImage: 'linear-gradient(rgba(255,255,205,0.3),rgba(255,130,105,0.1))'
+	},
+	motion2Easing: 'easeInOutBack',
+
+	//-----
+	motion3End: 1500,
+	motion3ToStyle: {
+		top: '200px',
+		transform: 'rotate(-100deg) scale(0)'
+	}
+});
+</script>
+</body>
+</html>
