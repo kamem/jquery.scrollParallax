@@ -111,6 +111,7 @@
 				var speed = speeds[i] || options.speed;
 				var min = mins[i] || options.min;
 				var max = maxs[i] || options.max;
+				var fixScrollPosition = scrollPositionStringToNumber(options.fixScrollPosition);
 				var fixPosition = fixPositions[i] ||options.fixPosition;
 
 				var styleVal = new styleValue(fixPosition);
@@ -121,7 +122,7 @@
 					var valuesMax = typeof max === 'object' ? max[j] : max;
 					var valuesSpeed = typeof speed === 'object' ? speed[j] : speed;
 
-					values[j] = -Number(-status.scrollPosition / valuesSpeed + options.fixScrollPosition / valuesSpeed) + value;
+					values[j] = -Number(-status.scrollPosition / valuesSpeed + fixScrollPosition / valuesSpeed) + value;
 					values[j] = Number(values[j] < valuesMin ? valuesMin : values[j] > valuesMax ? valuesMax : values[j]);
 
 					if(style.indexOf('background') >= 0) values[j] = values[j] >= 1 ? parseInt(values[j]) : values[j] < 0 ? 0 : values[j];
@@ -151,10 +152,9 @@
 	};
 
 	ScrollFit.prototype.setRangeMotions = function() {
-		var _this = this;
 		var range = [];
 		this.motions.forEach(function (motion) {
-			var start = _this.motionStringToNumber(motion.start);
+			var start = scrollPositionStringToNumber(motion.start);
 			var isMotion = start <= status.scrollPosition;
 			if(isMotion) range.push(motion);
 		});
@@ -162,20 +162,7 @@
 		this.rangeMotions = range;
 	};
 
-	ScrollFit.prototype.motionStringToNumber = function(motionStart){
-		if(typeof motionStart === 'string') {
-			var i = motionStart.split(',');
-			var value = $(i[0]).offset()[status.directionPositionName.toLocaleLowerCase()];
-			if(i[1]) value += parseInt(i[1]);
-		} else {
-			var value = motionStart;
-		}
-
-		return value;
-	};
-
 	ScrollFit.prototype.setDefaultStyles = function () {
-		var _this = this;
 		var defaultStyles = {};
 		this.motions.forEach(function (motion) {
 			for(var style in motion.fromStyle) {
@@ -265,8 +252,8 @@
 			scrollFit.setDefaultStyles();
 
 			scrollFit.rangeMotions.forEach(function (motion, j) {
-				var start = scrollFit.motionStringToNumber(motion.start);
-				var end = scrollFit.motionStringToNumber(motion.end);
+				var start = scrollPositionStringToNumber(motion.start);
+				var end = scrollPositionStringToNumber(motion.end);
 				var isInRange = start <  status.scrollPosition && status.scrollPosition < end;
 				var range = end - start;
 				var scrollPercent = isInRange ? (status.scrollPosition - start) / range :
@@ -311,6 +298,17 @@
 	global.onmousewheel = document.onmousewheel = scrollStop;
 
 
+	var scrollPositionStringToNumber = function(motionStart){
+		if(typeof motionStart === 'string') {
+			var i = motionStart.split(',');
+			var value = $(i[0]).offset()[status.directionPositionName.toLocaleLowerCase()];
+			if(i[1]) value += parseInt(i[1]);
+		} else {
+			var value = motionStart;
+		}
+
+		return value;
+	};
 
 	var styleValue = function(str) {
 		this.myRegExp = /(\d+(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g;

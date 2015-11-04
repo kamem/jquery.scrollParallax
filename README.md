@@ -58,7 +58,7 @@ classは任意の値を入れてください。
 	$.parallaxTiming({
 		timingLinePercent: 50
 	});
-	
+
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
 | timingLinePercent | タイミングの位置をどこに設定するか（windowの幅での割合） |`50`
@@ -71,10 +71,10 @@ classは任意の値を入れてください。
 		end: null,
 		toggle: []
 	);
-	
+
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| fixScrollPosition | スクロール位置がこの位置にきた時に関数が実行される、もしも値が`null`の場合は指定したタグの位置を代入します。 |`null`
+| fixScrollPosition | スクロール位置がこの位置にきた時に関数が実行される、もしも値が`null`の場合は指定したタグのoffset().topを代入します。 |`null`
 | start | 上から下に向かって通過した場合に実行される |`null`
 | end | 下から上に代入します。 |`null`
 | start | 上から下に向かって通過した場合に実行される |`null`
@@ -84,30 +84,39 @@ classは任意の値を入れてください。
 2つとも同じ意味です
 
 	$(el).parallaxTiming({
-		start: function() {
+		start: function(e) {
 			console.log('start')
 		},
-		end: function() {
+		end: function(e) {
 			console.log('end')
 		}
 	});
-	
+
 	$(el).parallaxTiming({
 		toggle: [
-			function() {
+			function(e) {
 				console.log('start')
 			},
-			function() {
+			function(e) {
 				console.log('end')
 			}
 		]
 	});
+
+※ 引数に`isOver`と`target`が返されます。
+
+	function(e) {
+		console.log(e.isOver); //ラインを超えているか
+		console.log(e.target); //どのコンテンツの関数が反応したのか
+	}
+
 
 #### 例）`jquery.dataExtend`を使用した場合
 
 	<p class="parallax-timing" data-start="start" data-end="end">Test</p>
 
 このタグの位置を`fixScrollPosition`で指定した位置が通過した場合に関数を実行
+※ fixScrollPositionを省略している場合は指定したタグのoffset().topが基準になります。
 
 * 上から下に通過した場合に`global`にある`start`を実行
 * 下から上に通過した場合に`global`にある`end`を実行
@@ -124,7 +133,7 @@ classは任意の値を入れてください。
 		adjustment: String($element.css(style)),
 		fixScrollPosition: 0
 	});
-	
+
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
 | style | 変化させたいcssの値 |`'top'`
@@ -132,7 +141,7 @@ classは任意の値を入れてください。
 | min | 値の最小値 |`-999999`
 | max | 値の最大値 |`999999`
 | fixPosition | 希望の位置、コンテンツのfix位置、nullの場合はcss予め指定していた位置が代入されます。 |`null`
-| fixScrollPosition | スクロールが`fixScrollPosition`の位置に来た時に希望の位置（adjustment）にコンテンツがfixします。 |`0`
+| fixScrollPosition | スクロールが`fixScrollPosition`の位置に来た時に希望の位置（fixPosition）にコンテンツがfixします。 |`0`
 
 #### 例）
 	$(el).parallaxSpeed {
@@ -140,13 +149,13 @@ classは任意の値を入れてください。
 		speed: 0.5
 		fixScrollPosition: 300
 	}
-	
+
 #### 例）`jquery.dataExtend`を使用した場合
 
-	<p class="parallax-speed" data-style="left" data-speed="0.5" data-fixScrollPosition="300">Test</p>
+	<p class="parallax-speed" data-style="left" data-speed="0.5" data-fix-scroll-position="300">Test</p>
 
 
-#### 応用編	
+#### 応用編
 各オプションは配列で指定することができます。
 
 	$(el).parallaxSpeed {
@@ -156,7 +165,7 @@ classは任意の値を入れてください。
 		max: [500, 500, [255,255,200]] //3つめはrba(100, 100, 100)のような値をそれぞれ指定できます。
 		fixScrollPosition: 300
 	}
-	
+
 #### `jquery.dataExtend`を使用した場合
 
 	<p class="parallax-speed"
@@ -164,7 +173,14 @@ classは任意の値を入れてください。
 		data-speed="[0.5, 2, 2]"
 		data-min="[0.5, 2, 2]"
 		data-max="[500, 500, [255,255,200]]"
-		fixScrollPosition="300">Test</p>
+		data-fix-scroll-position="300">Test</p>
+
+
+#### ウィンドウ幅によりコンテンツ幅が変わる場合の対処方法
+下記のようにタグを指定することでそのタグの`offset().top`からの位置を`fixScrollPosition`とすることができます。
+基準の位置から微調整したい場合は`,`で区切り値を入れてください。
+
+	fixScrollPosition: '#main,+100'
 
 ### fit
 
@@ -181,7 +197,7 @@ classは任意の値を入れてください。
 		},
 		easing: 'easeInOutBack',
 	});
-	
+
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
 | start | 移動を始めるスクロール位置 |`null`
@@ -190,7 +206,7 @@ classは任意の値を入れてください。
 | fromStyle | 終わりのcss（cssは文字列で指定してください） |`null`
 | easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定 |`null`
 
-	
+
 #### 例）`jquery.dataExtend`を使用した場合
 
 	<p class="parallax-fit"
@@ -198,14 +214,14 @@ classは任意の値を入れてください。
 		data-end="500"
 		data-fromStyle="{top: '100px'}"
 		data-toStyle="{top: '400px'}"
-		data-easing="easeInOutBack2>Test</p>
+		data-easing="easeInOutBack">Test</p>
 
-#### 応用編	
+#### 応用編
 
 `motion1Start`のようにmotionをつなげていくことでmotionを複数指定できます。
 
-* start,fromを省略すると過去の値を参照し最後に指定した値から始まります。
-* 参照した結果fromの値がない場合はcssで指定している値を見に行きます。
+* start,fromを省略すると過去の`end` or `to`の値を参照し最後に指定した値から始まります。
+* 参照した結果`end` or `to`の値がない場合はcssで指定している値を見にいきます。
 
 
 ---
@@ -219,7 +235,7 @@ classは任意の値を入れてください。
 			top: '400px'
 		},
 		easing: 'easeInOutBack',
-		
+
 		motion1End: 700,
 		motion1FromStyle: {
 			left: '300px'
@@ -230,14 +246,15 @@ classは任意の値を入れてください。
 		motion1Easing: 'easeInOutBack',
 	});
 
-#### スクロールによって基準点を変えたい場合の対処方法
+#### ウィンドウ幅によりコンテンツ幅が変わる場合の対処方法
 下記のようにタグを指定することでそのタグの`offset().top`からの位置を`start`とすることができます。
 基準の位置から微調整したい場合は`,`で区切り値を入れてください。
 
 	$(el).parallaxFit({
 		start: '#main',
 		end:'#main,+100',
-	
+
+
 ## License
 
 The license is available within the repository in the [LICENSE](https://github.com/kamem/jquery.scrollParallax/blob/master/LICENSE.txt) file.
