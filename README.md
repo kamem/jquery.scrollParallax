@@ -130,7 +130,7 @@ classは任意の値を入れてください。
 		speed: 2,
 		min: -999999,
 		max: 999999,
-		adjustment: String($element.css(style)),
+		fixStyleValue: String($element.css(style)),
 		fixScrollPosition: 0
 	});
 
@@ -140,8 +140,8 @@ classは任意の値を入れてください。
 | speed | スクロール量 / speed ので値を変化させる |`2`
 | min | 値の最小値 |`-999999`
 | max | 値の最大値 |`999999`
-| fixPosition | 希望の位置、コンテンツのfix位置、nullの場合はcss予め指定していた位置が代入されます。 |`null`
-| fixScrollPosition | スクロールが`fixScrollPosition`の位置に来た時に希望の位置（fixPosition）にコンテンツがfixします。 |`0`
+| fixStyleValue | 希望の位置、コンテンツのfix位置、nullの場合はcss予め指定していた位置が代入されます。 |`null`
+| fixScrollPosition | スクロールが`fixScrollPosition`の位置に来た時に希望の位置（fixStyleValue）にコンテンツがfixします。 |`0`
 
 #### 例）
 	$(el).parallaxSpeed {
