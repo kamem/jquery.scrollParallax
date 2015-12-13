@@ -79,8 +79,7 @@ Run the function when it has passed through an arbitrary position.
 | fixScrollPosition | If the value is "null", substitute the "offset (). Top" of the specified tag. |`null`
 | start | Function to be executed when it has passed through from top to bottom |`null`
 | end | Function to be executed when it has passed through from bottom to top |`null`
-| toggle | When you pass through from top to bottom, run the first array.
-When you pass through from bottom to top, run the second array. |`[]`
+| toggle | When you pass through from top to bottom, run the first array. When you pass through from bottom to top, run the second array. |`[]`
 
 #### Example)
 Writing of two ways code.
