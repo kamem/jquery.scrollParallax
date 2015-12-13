@@ -6,6 +6,7 @@
 	],
 	"dependencies": {},
 	"ignore": [
+		"src",
 		"example",
 		"gulpfile_settings.js",
 		"gulpfile.js",
