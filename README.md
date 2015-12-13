@@ -1,13 +1,13 @@
 # jquery.scrollParallax
 
-スクロールによってcssを変更してパララックス効果を実現するjQueryプラグインです。
+Change the css by the scroll is a jQuery plugin that implements the parallax effect.
 
 ## Description
-このプラグインには3つの機能があります。
+This plugin has three functions.
 
-1. 任意の位置にスクロール量が来た時に関数を実行する
-2. スクロール量に応じてcssを変化させる
-3. 移動距離に応じてcssを変化させる
+1.Run the function when it has passed through an arbitrary position
+2. Changing the css according to the scroll amount
+3. Changing the css according to the moving distance
 
 ## DEMO
 
@@ -18,16 +18,17 @@
 * jquery
 * [jquery.dataExtend](https://github.com/kamem/jquery.dataExtend)
 
-※ jquery.dataExtendはjqueryプラグイン用の記述をdata属性に持たせることができるプラグインです。
-これを使うことによってjsをあまり書かずにparallax効果を実現することができます。
-jquery.dataExtendの詳しい説明は詳しくは下記を見てください。
+※ a description of the jquery plugin is a plugin that can be written to the data attribute.
+By using this, it will be able to realize a parallax effect without writing too much js.
+
+Full description of jquery.dataExtend, please look at the following.
 
 * en: https://github.com/kamem/jquery.dataExtend
 * ja: http://qiita.com/kamem/items/94e974a0212396d97ed7
 
 ## Usage
 
-### 初期設定
+### Initial setting
 
 	$.parallax({
 		stage: window,
@@ -38,22 +39,23 @@ jquery.dataExtendの詳しい説明は詳しくは下記を見てください。
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| stage      | スクロールさせたいwindow |`window`
-| direction  | スクロールの方向 |`'y'`
-| debugMode  | デバックようにスクロール量を表示 timingでの実行位置を表示 | `false`
+| stage      | Window as the user scrolls |`window`
+| direction  | Direction of the scroll |`'y'`
+| debugMode  | Will display the scroll amount for debugging. Will display the position to perform the function in timing. | `false`
 
-### `jquery.dataExtend`を使用する場合
-classは任意の値を入れてください。
-（これにより下記のクラスをつけたタグにはdata属性でoptionを指定することができます。）
+### If you are using a jquery.dataExtend
 
 	$('.parallax-timing').dataExtend('parallaxTiming');
 	$('.parallax-speed').dataExtend('parallaxSpeed');
 	$('.parallax-fit').dataExtend('parallaxFit');
 
-### timing
-任意の位置にスクロール量が来た時に関数を実行する
+Class Please put any value.
+And if this writing, the tag that was attached the above class, you can specify the option in the data attribute.
 
-#### 初期設定
+### timing
+Run the function when it has passed through an arbitrary position.
+
+#### Initial setting
 
 	$.parallaxTiming({
 		timingLinePercent: 50
@@ -61,9 +63,9 @@ classは任意の値を入れてください。
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| timingLinePercent | タイミングの位置をどこに設定するか（windowの幅での割合） |`50`
+| timingLinePercent |Position that you want to run. (percentage of window width) |`50`
 
-#### 動作
+#### Behavior
 
 	$(el).parallaxTiming(
 		fixScrollPosition: null,
@@ -74,14 +76,14 @@ classは任意の値を入れてください。
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| fixScrollPosition | スクロール位置がこの位置にきた時に関数が実行される、もしも値が`null`の場合は指定したタグのoffset().topを代入します。 |`null`
-| start | 上から下に向かって通過した場合に実行される |`null`
-| end | 下から上に代入します。 |`null`
-| start | 上から下に向かって通過した場合に実行される |`null`
-| toggle | 上から下に向かって通過した場合: 配列の1番目を実行, 下から上に向かって通過した場合: 配列の2番目を実行 |`[]`
+| fixScrollPosition | If the value is "null", substitute the "offset (). Top" of the specified tag. |`null`
+| start | Function to be executed when it has passed through from top to bottom |`null`
+| end | Function to be executed when it has passed through from bottom to top |`null`
+| toggle | When you pass through from top to bottom, run the first array.
+When you pass through from bottom to top, run the second array. |`[]`
 
-#### 例）
-2つとも同じ意味です
+#### Example)
+Writing of two ways code.
 
 	$(el).parallaxTiming({
 		start: function(e) {
@@ -103,27 +105,27 @@ classは任意の値を入れてください。
 		]
 	});
 
-※ 引数に`isOver`と`target`が返されます。
+※ "IsOver" and "target" in the argument is returned.
 
 	function(e) {
-		console.log(e.isOver); //ラインを超えているか
-		console.log(e.target); //どのコンテンツの関数が反応したのか
+		console.log(e.isOver); //Whether it exceeds the line
+		console.log(e.target); //It returns the elements specified in the "$ (el)"
 	}
 
 
-#### 例）`jquery.dataExtend`を使用した場合
+#### Example) If you are using a jquery.dataExtend
 
 	<p class="parallax-timing" data-start="start" data-end="end">Test</p>
 
-このタグの位置を`fixScrollPosition`で指定した位置が通過した場合に関数を実行
-※ fixScrollPositionを省略している場合は指定したタグのoffset().topが基準になります。
+Run the function if it has passed through the position of this tag.
+If you omit the "fixScrollPosition", Tag of "offset (). Top" will be the reference.
 
-* 上から下に通過した場合に`global`にある`start`を実行
-* 下から上に通過した場合に`global`にある`end`を実行
+* Run in the "global" "start" when it is passed from top to bottom
+* Run in the "global" "end" when it is passed from bottom to top
 
 ### speed
 
-スクロール量に応じてcssを変化させる
+Changing the css according to the scroll amount
 
 	$(el).parallaxSpeed({
 		style: 'top',
@@ -136,37 +138,37 @@ classは任意の値を入れてください。
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| style | 変化させたいcssの値 |`'top'`
-| speed | スクロール量 / speed ので値を変化させる |`2`
-| min | 値の最小値 |`-999999`
-| max | 値の最大値 |`999999`
-| fixStyleValue | 希望の位置、コンテンツのfix位置、nullの場合はcss予め指定していた位置が代入されます。 |`null`
-| fixScrollPosition | スクロールが`fixScrollPosition`の位置に来た時に希望の位置（fixStyleValue）にコンテンツがfixします。 |`0`
+| style | The change you want css values |`'top'`
+| speed | Changing the value in the calculation formula of "scroll amount / speed" |`2`
+| min | Minimum value |`-999999`
+| max | Maximum value |`999999`
+| fixStyleValue | Style of when the content is to fix. is assigned the style that has been specified in advance by the css in the case of null. |`null`
+| fixScrollPosition | It is the value of the "fixStyleValue" when the amount of scroll came to the position of "fixScrollPosition". |`0`
 
-#### 例）
+#### Example)
 	$(el).parallaxSpeed {
 		sytle: 'left',
 		speed: 0.5
 		fixScrollPosition: 300
 	}
 
-#### 例）`jquery.dataExtend`を使用した場合
+#### Example) If you are using a jquery.dataExtend
 
 	<p class="parallax-speed" data-style="left" data-speed="0.5" data-fix-scroll-position="300">Test</p>
 
 
-#### 応用編
-各オプションは配列で指定することができます。
+#### further practice
+Each option can be specified in the array.
 
 	$(el).parallaxSpeed {
 		sytle: ['top', 'left', 'background-color'],
 		speed: [0.5, 2, 2],
 		min: [100, 100, [100,10,0]],
-		max: [500, 500, [255,255,200]] //3つめはrba(100, 100, 100)のような値をそれぞれ指定できます。
+		max: [500, 500, [255,255,200]] //rgb(100, 100, 100)
 		fixScrollPosition: 300
 	}
 
-#### `jquery.dataExtend`を使用した場合
+#### If you are using a jquery.dataExtend
 
 	<p class="parallax-speed"
 		data-style="['top', 'left', 'background-color']"
@@ -176,15 +178,15 @@ classは任意の値を入れてください。
 		data-fix-scroll-position="300">Test</p>
 
 
-#### ウィンドウ幅によりコンテンツ幅が変わる場合の対処方法
-下記のようにタグを指定することでそのタグの`offset().top`からの位置を`fixScrollPosition`とすることができます。
-基準の位置から微調整したい場合は`,`で区切り値を入れてください。
+#### What to do if the content width is changed by the width of the window
+Its "offset ().top" of the tag can be a position from "fixScrollPosition" by specifying the tag as follows.
+Please put the value in a comma-separated if you want to adjust from a reference position.
 
 	fixScrollPosition: '#main,+100'
 
 ### fit
 
-移動距離に応じてcssを変化させる
+Changing the css according to the moving distance
 
 	$(el).parallaxFit({
 		start: 0,
@@ -200,14 +202,14 @@ classは任意の値を入れてください。
 
 | option name| Descriptions |default
 |:-----------|:------------|:------------|
-| start | 移動を始めるスクロール位置 |`null`
-| end | 移動が終わるスクロール位置 |`null`
-| toStyle | 始めのcss（cssは文字列で指定してください） |`null`
-| fromStyle | 終わりのcss（cssは文字列で指定してください） |`null`
-| easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定 |`null`
+| start | Scroll position to start moving |`null`
+| end | Scroll position to movement end |`null`
+| toStyle | Css at the time of the start（String） |`null`
+| fromStyle |Css at the time of the end（String） |`null`
+| easing | Specify the easing name [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)  |`null`
 
 
-#### 例）`jquery.dataExtend`を使用した場合
+#### 例） If you are using a jquery.dataExtend
 
 	<p class="parallax-fit"
 		data-start="0"
@@ -216,12 +218,13 @@ classは任意の値を入れてください。
 		data-toStyle="{top: '400px'}"
 		data-easing="easeInOutBack">Test</p>
 
-#### 応用編
+#### further practice
 
-`motion1Start`のようにmotionをつなげていくことでmotionを複数指定できます。
+You can specify multiple motion by such as "motion1Start".
 
-* start,fromを省略すると過去の`end` or `to`の値を参照し最後に指定した値から始まります。
-* 参照した結果`end` or `to`の値がない場合はcssで指定している値を見にいきます。
+* You will see the value of the past "end" If you omit the " start".
+* You will see the value of the past "to" If you omit the " from".
+* If there is no value of the referenced results "to" You go to see the value that is specified in the css.
 
 
 ---
@@ -246,9 +249,9 @@ classは任意の値を入れてください。
 		motion1Easing: 'easeInOutBack',
 	});
 
-#### ウィンドウ幅によりコンテンツ幅が変わる場合の対処方法
-下記のようにタグを指定することでそのタグの`offset().top`からの位置を`start`とすることができます。
-基準の位置から微調整したい場合は`,`で区切り値を入れてください。
+#### What to do if the content width is changed by the window width
+Its "offset ().top" of the tag can be a position from "start" by specifying the tag as follows.
+Please put the value in a comma-separated if you want to adjust from a reference position.
 
 	$(el).parallaxFit({
 		start: '#main',
