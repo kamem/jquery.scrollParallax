@@ -9,6 +9,16 @@
 2. スクロール量に応じてcssを変化させる
 3. 移動距離に応じてcssを変化させる
 
+## Install
+
+### Bower
+
+	bower install jquery.scrollParallax
+
+### Npm
+
+	npm install jquery.scroll-parallax
+
 ## DEMO
 
 * [y scroll](http://github.develo.org/jquery.scrollParallax/example/y.html)

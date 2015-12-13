@@ -26,6 +26,16 @@ Full description of jquery.dataExtend, please look at the following.
 * en: https://github.com/kamem/jquery.dataExtend
 * ja: http://qiita.com/kamem/items/94e974a0212396d97ed7
 
+## Install
+
+### Bower
+
+	bower install jquery.scrollParallax
+
+### Npm
+
+	npm install jquery.scroll-parallax
+
 ## Usage
 
 ### Initial setting
