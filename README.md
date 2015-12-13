@@ -26,6 +26,16 @@ Full description of jquery.dataExtend, please look at the following.
 * en: https://github.com/kamem/jquery.dataExtend
 * ja: http://qiita.com/kamem/items/94e974a0212396d97ed7
 
+## Install
+
+### Bower
+
+	bower install jquery.scrollParallax
+
+### Npm
+
+	npm install jquery.scroll-parallax
+
 ## Usage
 
 ### Initial setting
@@ -79,8 +89,7 @@ Run the function when it has passed through an arbitrary position.
 | fixScrollPosition | If the value is "null", substitute the "offset (). Top" of the specified tag. |`null`
 | start | Function to be executed when it has passed through from top to bottom |`null`
 | end | Function to be executed when it has passed through from bottom to top |`null`
-| toggle | When you pass through from top to bottom, run the first array.
-When you pass through from bottom to top, run the second array. |`[]`
+| toggle | When you pass through from top to bottom, run the first array. When you pass through from bottom to top, run the second array. |`[]`
 
 #### Example)
 Writing of two ways code.
