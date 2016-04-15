@@ -223,8 +223,8 @@ Changing the css according to the moving distance
 	<p class="parallax-fit"
 		data-start="0"
 		data-end="500"
-		data-fromStyle="{top: '100px'}"
-		data-toStyle="{top: '400px'}"
+		data-from-style="{'top': '100px'}"
+		data-to-style="{'top': '400px'}"
 		data-easing="easeInOutBack">Test</p>
 
 #### further practice
