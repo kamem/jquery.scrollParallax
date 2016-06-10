@@ -2,7 +2,7 @@ import {Status} from './ScrollStatus';
 
 export class StyleValue {
 	constructor(styleValue) {
-		this.myRegExp = /(\d+(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g;
+		this.myRegExp = /([-]?([1-9]\d*|0)(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g;
 		this.colorStringRegExp = /red|blue|green|yellow/g;
 		this.colorRegExp = /#[0-9a-fA-F]{3,6}/g;
 		this.value = this.changeColor(styleValue);
