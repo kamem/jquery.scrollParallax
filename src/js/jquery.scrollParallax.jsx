@@ -6,34 +6,35 @@ import {easing} from './scrollParallax/Util';
 import {scrollPositionStringToNumber} from './scrollParallax/Util';
 
 /* all parallax default options */
-$.parallax = function(ops) {
+$.parallax = (ops) => {
 	Status.setVal(ops);
 
 	if(Status.debugMode) $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (Status.direction === 'y' ? 'width' : 'height') + ': 100%;' + (Status.direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
 };
 
 /* timing */
-var Timing = new ScrollTiming();
+const Timing = new ScrollTiming();
 
 /* timing default options */
-$.parallaxTiming = function(ops) {
+$.parallaxTiming = (ops) => {
 	Timing.setVal(ops);
 };
 
 $.fn.parallaxTiming = function(ops) {
-	var $element = this;
-	var toggle = ops.toggle || [];
-	var fixScrollPosition = ops.fixScrollPosition || null;
+	const $element = this;
+	const toggle = ops.toggle || [];
+	const fixScrollPosition = ops.fixScrollPosition || null;
 
 	var isOver;
-	Status.functions.push(function() {
-		var fixLine = fixScrollPosition ? fixScrollPosition : $element.offset()[Status.directionPositionName.toLocaleLowerCase()];
-		var timingLinePercent = ops.timingLinePercent || Timing.timingLinePercent;
-		var timingLine = Status.scrollPosition + (Status.stageSize / (100 / timingLinePercent));
+	Status.functions.push(() => {
+		const fixLine = fixScrollPosition ? fixScrollPosition : $element.offset()[Status.directionPositionName.toLocaleLowerCase()];
+		const timingLinePercent = ops.timingLinePercent || Timing.timingLinePercent;
+		const timingLine = Status.scrollPosition + (Status.stageSize / (100 / timingLinePercent));
 
 		if(timingLine >= fixLine ? !isOver : isOver) {
 			isOver = timingLine >= fixLine;
-			var name = [isOver ? 'start' : 'end'];
+			const name = isOver ? 'start' : 'end';
+
 			if(ops[name]) {
 				ops[name]({target: $element, isOver: isOver})
 			} else if(toggle.length > 0) {
@@ -47,10 +48,10 @@ $.fn.parallaxTiming = function(ops) {
 
 /* speed */
 $.fn.parallaxSpeed = function(ops) {
-	var $element = this;
+	const $element = this;
 
-	var style = ops.style || 'top';
-	var options = $.extend({
+	const style = ops.style || 'top';
+	const options = $.extend({
 		speed: 2,
 		min: -999999,
 		max: 999999,
@@ -58,31 +59,31 @@ $.fn.parallaxSpeed = function(ops) {
 		fixScrollPosition: 0
 	}, ops);
 
-	var styles = typeof style === 'object' ? style : [style];
-	var speeds = typeof options.speed === 'object' ? options.speed : [options.speed];
-	var mins = typeof options.min === 'object' ? options.min : [options.min];
-	var maxs = typeof options.max === 'object' ? options.max : [options.max];
-	var fixStyleValues = [];
-	styles.forEach(function(name, i) {
+	const styles = typeof style === 'object' ? style : [style];
+	const speeds = typeof options.speed === 'object' ? options.speed : [options.speed];
+	const mins = typeof options.min === 'object' ? options.min : [options.min];
+	const maxs = typeof options.max === 'object' ? options.max : [options.max];
+	let fixStyleValues = [];
+	styles.forEach((name, i) => {
 		fixStyleValues[i] = String($element.css(name));
 	});
 
-	Status.functions.push(function () {
-		styles.forEach(function(style, i) {
-			var speed = speeds[i] || options.speed;
-			var min = mins[i] || options.min;
-			var max = maxs[i] || options.max;
-			var fixScrollPosition = scrollPositionStringToNumber(options.fixScrollPosition);
-			var fixStyleValue = fixStyleValues[i] ||options.fixStyleValue;
+	Status.functions.push(() => {
+		styles.forEach((style, i) => {
+			const speed = speeds[i] || options.speed;
+			const min = mins[i] || options.min;
+			const max = maxs[i] || options.max;
+			const fixScrollPosition = scrollPositionStringToNumber(options.fixScrollPosition);
+			const fixStyleValue = fixStyleValues[i] ||options.fixStyleValue;
 
-			var styleVal = new StyleValue(fixStyleValue);
-			var styleValues = styleVal.getValueAry();
+			const styleVal = new StyleValue(fixStyleValue);
+			const styleValues = styleVal.getValueAry();
 
-			var values = [];
-			styleValues.forEach(function(value, j) {
-				var valuesMin = typeof min === 'object' ? min[j] : min;
-				var valuesMax = typeof max === 'object' ? max[j] : max;
-				var valuesSpeed = typeof speed === 'object' ? speed[j] : speed;
+			let values = [];
+			styleValues.forEach((value, j) => {
+				const valuesMin = typeof min === 'object' ? min[j] : min;
+				const valuesMax = typeof max === 'object' ? max[j] : max;
+				const valuesSpeed = typeof speed === 'object' ? speed[j] : speed;
 
 				values[j] = -Number(-Status.scrollPosition / valuesSpeed + fixScrollPosition / valuesSpeed) + value;
 				values[j] = Number(values[j] < valuesMin ? valuesMin : values[j] > valuesMax ? valuesMax : values[j]);
@@ -100,7 +101,7 @@ $.fn.parallaxSpeed = function(ops) {
 
 /* fit */
 $.fn.parallaxFit = function(ops) {
-	var Fit = new ScrollFit(this);
+	const Fit = new ScrollFit(this);
 
 	if(ops['end'] !== undefined) {
 		Fit.setMotions({
@@ -111,8 +112,8 @@ $.fn.parallaxFit = function(ops) {
 			easing: ops['easing']
 		});
 	}
-	for(var i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
-		var motion = 'motion' + i;
+	for(let i = 1; ops['motion' + i + 'End'] !== undefined; i++) {
+		const motion = 'motion' + i;
 		Fit.setMotions({
 			start: ops[motion + 'Start'],
 			end: ops[motion + 'End'],
@@ -129,25 +130,25 @@ $.fn.parallaxFit = function(ops) {
 		Fit.setDefaultStyles();
 
 		Fit.rangeMotions.forEach(function (motion, j) {
-			var start = scrollPositionStringToNumber(motion.start);
-			var end = scrollPositionStringToNumber(motion.end);
-			var isInRange = start <  Status.scrollPosition && Status.scrollPosition < end;
-			var range = end - start;
-			var scrollPercent = isInRange ? (Status.scrollPosition - start) / range :
+			const start = scrollPositionStringToNumber(motion.start);
+			const end = scrollPositionStringToNumber(motion.end);
+			const isInRange = start <  Status.scrollPosition && Status.scrollPosition < end;
+			const range = end - start;
+			const scrollPercent = isInRange ? (Status.scrollPosition - start) / range :
 					(Status.scrollPosition > start) ? 1 :
 					(Status.scrollPosition < end) ? 0 : '';
 
-			for(var style in motion.fromStyle) {
+			for(let style in motion.fromStyle) {
 
-				var from = new StyleValue(String(motion.fromStyle[style]));
-				var to = new StyleValue(String(motion.toStyle[style]));
-				var fromStyles = from.getValueAry();
-				var toStyles = to.getValueAry();
-				var values = [];
+				const from = new StyleValue(String(motion.fromStyle[style]));
+				const to = new StyleValue(String(motion.toStyle[style]));
+				const fromStyles = from.getValueAry();
+				const toStyles = to.getValueAry();
+				const values = [];
 
-				for(var i = 0;i < fromStyles.length;i++) {
-					var abs = Math.abs(fromStyles[i] - toStyles[i]);
-					var fixAbs = fromStyles[i] < toStyles[i] ? abs : -abs;
+				for(let i = 0;i < fromStyles.length;i++) {
+					const abs = Math.abs(fromStyles[i] - toStyles[i]);
+					const fixAbs = fromStyles[i] < toStyles[i] ? abs : -abs;
 
 					values[i] = easing[motion.easing](scrollPercent, fromStyles[i], fixAbs, 1);
 
@@ -162,14 +163,14 @@ $.fn.parallaxFit = function(ops) {
 };
 
 /* event */
-Status.$stage.on('scroll resize load', function () {
+Status.$stage.on('scroll resize load', () => {
 	Status.update();
 
-	Status.functions.forEach(function(func) {
+	Status.functions.forEach((func) => {
 		func();
 	});
 });
 
-var scrollStop = function(){Status.$stage.queue([]).stop();};
+const scrollStop = () => {Status.$stage.queue([]).stop();};
 global.addEventListener('DOMMouseScroll', scrollStop, false);
 global.onmousewheel = document.onmousewheel = scrollStop;

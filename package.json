@@ -1,6 +1,6 @@
 {
   "name": "jquery.scroll-parallax",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Implementing parallax effect by utilizing various events of scroll.",
   "author": {
     "name": "kamem",

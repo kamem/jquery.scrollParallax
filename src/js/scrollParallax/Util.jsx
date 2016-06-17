@@ -8,42 +8,42 @@ export class StyleValue {
 		this.value = this.changeColor(styleValue);
 	}
 	changeColor(styleValue) {
-		var colors = {red: 'FF0000', blue: '0000FF', yellow: 'FFFF00', green: '008000'};
-		var c = styleValue.replace(this.colorStringRegExp, function(color) {
+		const colors = {red: 'FF0000', blue: '0000FF', yellow: 'FFFF00', green: '008000'};
+		const c = styleValue.replace(this.colorStringRegExp, (color) => {
 			return '#' + colors[color]
 		});
-		return c.replace(this.colorRegExp, function(color) {
+		return c.replace(this.colorRegExp, (color) => {
 			if(color.length === 4) {
-				var firstNum  =  color.slice(1,2) + color.slice(1,2);
-				var secondNum =  color.slice(2,3) + color.slice(2,3);
-				var thirdNum  =  color.slice(3,4) + color.slice(3,4);
+				const firstNum  =  color.slice(1,2) + color.slice(1,2);
+				const secondNum =  color.slice(2,3) + color.slice(2,3);
+				const thirdNum  =  color.slice(3,4) + color.slice(3,4);
 				color = firstNum + secondNum + thirdNum;
 			}
-			var r = parseInt((color.substring(1)).substring(0,2),16);
-			var g = parseInt((color.substring(1)).substring(2,4),16);
-			var b = parseInt((color.substring(1)).substring(4,6),16);
+			const r = parseInt((color.substring(1)).substring(0,2),16);
+			const g = parseInt((color.substring(1)).substring(2,4),16);
+			const b = parseInt((color.substring(1)).substring(4,6),16);
 			return 'rgb(' + r + ',' + g + ',' + b + ')';
 		});
 	};
 	getValueAry() {
 		var valueRegAry;
-		var valueAry = [];
+		let valueAry = [];
 		while ((valueRegAry = this.myRegExp.exec(this.value)) !== null) {
 			valueAry.push(Number(valueRegAry[1]));
 		}
 		return valueAry;
 	};
 	setValue(ary) {
-		var i = 0;
-		return this.value.replace(this.myRegExp, function(styleValue) {
+		let i = 0;
+		return this.value.replace(this.myRegExp, (styleValue) => {
 			return styleValue.replace(/\d+(\.\d+)?/, ary[i++]);
 		});
 	};
 }
 
-export var scrollPositionStringToNumber = function(motionStart){
+export var scrollPositionStringToNumber = (motionStart) => {
 	if(typeof motionStart === 'string') {
-		var i = motionStart.split(',');
+		const i = motionStart.split(',');
 		var value = $(i[0]).offset()[Status.directionPositionName.toLocaleLowerCase()];
 		if(i[1]) value += parseInt(i[1]);
 	} else {

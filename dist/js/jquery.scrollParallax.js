@@ -1,10 +1,10 @@
 /*!
- * jquery.scrollParallax (2016-6-10)
+ * jquery.scrollParallax (2016-6-17)
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/jquery.scrollParallax.git
  * (c) 2016 kamem (@kamem)
  *
- * @version 0.2.0
+ * @version 0.2.1
  * @license Released under the MIT license
  * @author kamem
  */
@@ -532,10 +532,10 @@ scrollParallax_ScrollFit = function (exports, _ScrollStatus, _Util) {
       {
         key: 'setStart',
         value: function setStart() {
-          var _this = this;
+          var _this2 = this;
           this.motions.forEach(function (motion, i) {
             if (motion.start === undefined) {
-              motion.start = _this.getLastStart(i);
+              motion.start = _this2.getLastStart(i);
             }
           });
         }
@@ -584,7 +584,7 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
       var timingLine = _ScrollStatus.Status.scrollPosition + _ScrollStatus.Status.stageSize / (100 / timingLinePercent);
       if (timingLine >= fixLine ? !isOver : isOver) {
         isOver = timingLine >= fixLine;
-        var name = [isOver ? 'start' : 'end'];
+        var name = isOver ? 'start' : 'end';
         if (ops[name]) {
           ops[name]({
             target: $element,
