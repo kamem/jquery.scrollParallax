@@ -1,22 +1,22 @@
 /*!
- * jquery.scrollParallax (2016-6-17)
+ * jquery.scrollParallax (2016-7-18)
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/jquery.scrollParallax.git
  * (c) 2016 kamem (@kamem)
  *
- * @version 0.2.1
+ * @version 0.2.2
  * @license Released under the MIT license
  * @author kamem
  */
 (function (global, factory) {
-	if (typeof define === 'function' && define.amd) {
-		define(['jquery'], function() {factory($, global)});
-	} else if (typeof exports !== 'undefined') {
+	if (typeof exports !== 'undefined') {
 		module.exports = factory(require('jquery'), global);
-	} else {
+	}	else if (typeof define === 'function' && define.amd) {
+			define(['jquery'], function() {factory($, global)});
+	}  else {
 		factory($, global);
 	}
-} (this, function ($, global) {
+} (typeof window !== "undefined" ? window : this, function ($, global) {
 ;(function() {
 var scrollParallax_ScrollStatus = {}, scrollParallax_ScrollTiming = {}, scrollParallax_Util = {}, scrollParallax_ScrollFit = {}, jqueryscrollParallaxjs;
 scrollParallax_ScrollStatus = function (exports) {
