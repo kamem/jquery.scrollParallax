@@ -36,7 +36,7 @@ export class StyleValue {
 	setValue(ary) {
 		let i = 0;
 		return this.value.replace(this.myRegExp, (styleValue) => {
-			return styleValue.replace(/\d+(\.\d+)?/, ary[i++]);
+			return styleValue.replace(/[-]?([1-9]\d*|0)(\.\d+)?/, ary[i++]);
 		});
 	};
 }

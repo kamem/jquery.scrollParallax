@@ -1,10 +1,10 @@
 /*!
- * jquery.scrollParallax (2016-7-18)
+ * jquery.scrollParallax (2016-7-31)
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/jquery.scrollParallax.git
  * (c) 2016 kamem (@kamem)
  *
- * @version 0.2.2
+ * @version 0.3.0
  * @license Released under the MIT license
  * @author kamem
  */
@@ -205,7 +205,7 @@ scrollParallax_Util = function (exports, _ScrollStatus) {
         value: function setValue(ary) {
           var i = 0;
           return this.value.replace(this.myRegExp, function (styleValue) {
-            return styleValue.replace(/\d+(\.\d+)?/, ary[i++]);
+            return styleValue.replace(/[-]?([1-9]\d*|0)(\.\d+)?/, ary[i++]);
           });
         }
       }
