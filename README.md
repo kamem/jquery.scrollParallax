@@ -213,8 +213,8 @@ Changing the css according to the moving distance
 |:-----------|:------------|:------------|
 | start | Scroll position to start moving |`null`
 | end | Scroll position to movement end |`null`
-| toStyle | Css at the time of the start（String） |`null`
-| fromStyle |Css at the time of the end（String） |`null`
+| fromStyle | Css at the time of the start（String） |`null`
+| toStyle | Css at the time of the end（String） |`null`
 | easing | Specify the easing name [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)  |`null`
 
 

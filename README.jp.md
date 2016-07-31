@@ -214,8 +214,8 @@ classは任意の値を入れてください。
 |:-----------|:------------|:------------|
 | start | 移動を始めるスクロール位置 |`null`
 | end | 移動が終わるスクロール位置 |`null`
-| toStyle | 始めのcss（cssは文字列で指定してください） |`null`
-| fromStyle | 終わりのcss（cssは文字列で指定してください） |`null`
+| fromStyle | 始めのcss（cssは文字列で指定してください） |`null`
+| toStyle | 終わりのcss（cssは文字列で指定してください） |`null`
 | easing | [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)の名前を指定 |`null`
 
 
