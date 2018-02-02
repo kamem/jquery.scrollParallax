@@ -1,9 +1,9 @@
 (function (global, factory) {
-	if (typeof define === 'function' && define.amd) {
-		define(['jquery'], function() {factory($, global)});
-	} else if (typeof exports !== 'undefined') {
+	if (typeof exports !== 'undefined') {
 		module.exports = factory(require('jquery'), global);
-	} else {
+	}	else if (typeof define === 'function' && define.amd) {
+			define(['jquery'], function() {factory($, global)});
+	}  else {
 		factory($, global);
 	}
-} (this, function ($, global) {
+} (typeof window !== "undefined" ? window : this, function ($, global) {

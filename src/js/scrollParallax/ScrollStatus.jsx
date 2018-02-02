@@ -13,10 +13,10 @@ class ScrollStatus {
 		this.setDirectionInfo();
 	}
 	update() {
-		var scroll = 'scroll' + this.directionPositionName;
+		const scroll = 'scroll' + this.directionPositionName;
 		this.scrollPosition = this.$stage[scroll]();
 
-		var innerWidth = global['inner' + this.stageSizeName];
+		const innerWidth = global['inner' + this.stageSizeName];
 		this.stageSize = innerWidth ? innerWidth : document.documentElement['client' + this.stageSizeName];
 	}
 	setDirectionInfo() {
@@ -25,4 +25,4 @@ class ScrollStatus {
 	}
 }
 
-export var Status = new ScrollStatus();
+export const Status = new ScrollStatus();

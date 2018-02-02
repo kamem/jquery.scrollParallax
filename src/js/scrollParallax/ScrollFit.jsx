@@ -9,17 +9,17 @@ export class ScrollFit {
 		this.rangeMotions = [];
 	}
 	setMotions(motion) {
-		var ops = $.extend({
+		let ops = $.extend({
 			easing: 'linear'
 		}, motion);
 		this.motions.push(ops);
 	};
 
 	setRangeMotions() {
-		var range = [];
-		this.motions.forEach(function(motion) {
-			var start = scrollPositionStringToNumber(motion.start);
-			var isMotion = start <= Status.scrollPosition;
+		let range = [];
+		this.motions.forEach((motion) => {
+			const start = scrollPositionStringToNumber(motion.start);
+			const isMotion = start <= Status.scrollPosition;
 			if(isMotion) range.push(motion);
 		});
 
@@ -27,9 +27,9 @@ export class ScrollFit {
 	};
 
 	setDefaultStyles() {
-		var defaultStyles = {};
-		this.motions.forEach(function(motion) {
-			for(var style in motion.fromStyle) {
+		let defaultStyles = {};
+		this.motions.forEach((motion) => {
+			for(let style in motion.fromStyle) {
 				if(defaultStyles[style] === undefined) defaultStyles[style] = motion.fromStyle[style];
 			}
 		});
@@ -38,21 +38,20 @@ export class ScrollFit {
 	};
 
 	setFromStyle() {
-		var _this = this;
-		this.motions.forEach(function(motion, i) {
-			for(var style in motion.toStyle) {
+		this.motions.forEach((motion, i) => {
+			for(let style in motion.toStyle) {
 				if(motion.fromStyle === undefined) motion.fromStyle = {};
 				if(motion.fromStyle[style] === undefined) {
-					motion.fromStyle[style] = _this.getLastToStyle(style, i);
+					motion.fromStyle[style] = this.getLastToStyle(style, i);
 				}
 			}
 		});
 	};
 	getLastToStyle(style, i) {
-		var fromStyle = '';
-		var k = Math.max(i - 1, 0);
-		for(var j = k; j >= 0; j--) {
-			var motion = this.motions[j];
+		let fromStyle = '';
+		const k = Math.max(i - 1, 0);
+		for(let j = k; j >= 0; j--) {
+			const motion = this.motions[j];
 			if(motion.fromStyle[style] !== undefined) {
 				fromStyle = motion.toStyle[style];
 				break;
@@ -65,18 +64,17 @@ export class ScrollFit {
 
 
 	setStart() {
-		var _this = this;
-		this.motions.forEach(function(motion, i) {
+		this.motions.forEach((motion, i) => {
 			if(motion.start === undefined) {
-				motion.start = _this.getLastStart(i);
+				motion.start = this.getLastStart(i);
 			}
 		});
 	};
 	getLastStart(i) {
-		var start = '';
-		var k = Math.max(i - 1, 0);
-		for(var j = k; j >= 0; j--) {
-			var motion = this.motions[j];
+		let start = '';
+		const k = Math.max(i - 1, 0);
+		for(let j = k; j >= 0; j--) {
+			const motion = this.motions[j];
 			if(motion.start !== undefined) {
 				start = motion.end;
 				break;

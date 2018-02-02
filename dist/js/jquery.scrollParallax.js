@@ -1,22 +1,22 @@
 /*!
- * jquery.scrollParallax (2015-12-5)
+ * jquery.scrollParallax (2016-7-31)
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/jquery.scrollParallax.git
- * (c) 2015 kamem (@kamem)
+ * (c) 2016 kamem (@kamem)
  *
- * @version 0.1.1
+ * @version 0.3.0
  * @license Released under the MIT license
  * @author kamem
  */
 (function (global, factory) {
-	if (typeof define === 'function' && define.amd) {
-		define(['jquery'], function() {factory($, global)});
-	} else if (typeof exports !== 'undefined') {
+	if (typeof exports !== 'undefined') {
 		module.exports = factory(require('jquery'), global);
-	} else {
+	}	else if (typeof define === 'function' && define.amd) {
+			define(['jquery'], function() {factory($, global)});
+	}  else {
 		factory($, global);
 	}
-} (this, function ($, global) {
+} (typeof window !== "undefined" ? window : this, function ($, global) {
 ;(function() {
 var scrollParallax_ScrollStatus = {}, scrollParallax_ScrollTiming = {}, scrollParallax_Util = {}, scrollParallax_ScrollFit = {}, jqueryscrollParallaxjs;
 scrollParallax_ScrollStatus = function (exports) {
@@ -157,7 +157,7 @@ scrollParallax_Util = function (exports, _ScrollStatus) {
   var StyleValue = exports.StyleValue = function () {
     function StyleValue(styleValue) {
       _classCallCheck(this, StyleValue);
-      this.myRegExp = /(\d+(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g;
+      this.myRegExp = /([-]?([1-9]\d*|0)(\.\d+)?)(deg|\)|px|em|rem|%|$|\,)/g;
       this.colorStringRegExp = /red|blue|green|yellow/g;
       this.colorRegExp = /#[0-9a-fA-F]{3,6}/g;
       this.value = this.changeColor(styleValue);
@@ -205,7 +205,7 @@ scrollParallax_Util = function (exports, _ScrollStatus) {
         value: function setValue(ary) {
           var i = 0;
           return this.value.replace(this.myRegExp, function (styleValue) {
-            return styleValue.replace(/\d+(\.\d+)?/, ary[i++]);
+            return styleValue.replace(/[-]?([1-9]\d*|0)(\.\d+)?/, ary[i++]);
           });
         }
       }
@@ -532,10 +532,10 @@ scrollParallax_ScrollFit = function (exports, _ScrollStatus, _Util) {
       {
         key: 'setStart',
         value: function setStart() {
-          var _this = this;
+          var _this2 = this;
           this.motions.forEach(function (motion, i) {
             if (motion.start === undefined) {
-              motion.start = _this.getLastStart(i);
+              motion.start = _this2.getLastStart(i);
             }
           });
         }
@@ -584,7 +584,7 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
       var timingLine = _ScrollStatus.Status.scrollPosition + _ScrollStatus.Status.stageSize / (100 / timingLinePercent);
       if (timingLine >= fixLine ? !isOver : isOver) {
         isOver = timingLine >= fixLine;
-        var name = [isOver ? 'start' : 'end'];
+        var name = isOver ? 'start' : 'end';
         if (ops[name]) {
           ops[name]({
             target: $element,

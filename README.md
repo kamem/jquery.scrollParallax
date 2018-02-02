@@ -213,8 +213,8 @@ Changing the css according to the moving distance
 |:-----------|:------------|:------------|
 | start | Scroll position to start moving |`null`
 | end | Scroll position to movement end |`null`
-| toStyle | Css at the time of the start（String） |`null`
-| fromStyle |Css at the time of the end（String） |`null`
+| fromStyle | Css at the time of the start（String） |`null`
+| toStyle | Css at the time of the end（String） |`null`
 | easing | Specify the easing name [easing plugin](http://semooh.jp/jquery/cont/doc/easing/)  |`null`
 
 
@@ -223,8 +223,8 @@ Changing the css according to the moving distance
 	<p class="parallax-fit"
 		data-start="0"
 		data-end="500"
-		data-fromStyle="{top: '100px'}"
-		data-toStyle="{top: '400px'}"
+		data-from-style="{'top': '100px'}"
+		data-to-style="{'top': '400px'}"
 		data-easing="easeInOutBack">Test</p>
 
 #### further practice

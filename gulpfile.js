@@ -15,6 +15,9 @@ var watch = require('gulp-watch');
 
 var settings = require('./gulpfile_settings');
 var pkg = require('./package.json');
+pkg.name = pkg.name.replace(/-./g, function(str) {
+	return str.charAt(1).toUpperCase();
+});
 
 var Server = require('karma').Server;
 
