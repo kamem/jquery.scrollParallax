@@ -18,6 +18,7 @@ class ScrollStatus {
 
 		const innerWidth = global['inner' + this.stageSizeName];
 		this.stageSize = innerWidth ? innerWidth : document.documentElement['client' + this.stageSizeName];
+		this.contentSize = $(document)[this.stageSizeName.toLowerCase()]();
 	}
 	setDirectionInfo() {
 		this.directionPositionName = this.direction === 'y' ? 'Top' : 'Left';
