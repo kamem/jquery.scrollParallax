@@ -1,10 +1,10 @@
 /*!
- * jquery.scrollParallax (2016-7-31)
+ * jquery.scrollParallax (2018-2-3)
  * Implementing parallax effect by utilizing various events of scroll.
  * https://github.com/kamem/jquery.scrollParallax.git
- * (c) 2016 kamem (@kamem)
+ * (c) 2018 kamem (@kamem)
  *
- * @version 0.3.0
+ * @version 0.3.1
  * @license Released under the MIT license
  * @author kamem
  */
@@ -71,6 +71,7 @@ scrollParallax_ScrollStatus = function (exports) {
           this.scrollPosition = this.$stage[scroll]();
           var innerWidth = global['inner' + this.stageSizeName];
           this.stageSize = innerWidth ? innerWidth : document.documentElement['client' + this.stageSizeName];
+          this.contentSize = $(document)[this.stageSizeName.toLowerCase()]();
         }
       },
       {
@@ -192,7 +193,7 @@ scrollParallax_Util = function (exports, _ScrollStatus) {
       {
         key: 'getValueAry',
         value: function getValueAry() {
-          var valueRegAry;
+          var valueRegAry = void 0;
           var valueAry = [];
           while ((valueRegAry = this.myRegExp.exec(this.value)) !== null) {
             valueAry.push(Number(valueRegAry[1]));
@@ -213,13 +214,17 @@ scrollParallax_Util = function (exports, _ScrollStatus) {
     return StyleValue;
   }();
   var scrollPositionStringToNumber = exports.scrollPositionStringToNumber = function scrollPositionStringToNumber(motionStart) {
-    if (typeof motionStart === 'string') {
+    var value = void 0;
+    if (motionStart === 'lastScrollPosition') {
+      value = _ScrollStatus.Status.contentSize - _ScrollStatus.Status.stageSize;
+      console.log(_ScrollStatus.Status.contentSize, _ScrollStatus.Status.stageSize, value);
+    } else if (typeof motionStart === 'string') {
       var i = motionStart.split(',');
-      var value = $(i[0]).offset()[_ScrollStatus.Status.directionPositionName.toLocaleLowerCase()];
+      value = $(i[0]).offset()[_ScrollStatus.Status.directionPositionName.toLocaleLowerCase()];
       if (i[1])
         value += parseInt(i[1]);
     } else {
-      var value = motionStart;
+      value = motionStart;
     }
     return value;
   };
@@ -561,15 +566,20 @@ scrollParallax_ScrollFit = function (exports, _ScrollStatus, _Util) {
   return exports;
 }(scrollParallax_ScrollFit, scrollParallax_ScrollStatus, scrollParallax_Util);
 jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Util) {
-  function _typeof(obj) {
-    return obj && typeof Symbol !== 'undefined' && obj.constructor === Symbol ? 'symbol' : typeof obj;
-  }
+  var _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
+  };
+  /* all parallax default options */
   $.parallax = function (ops) {
     _ScrollStatus.Status.setVal(ops);
     if (_ScrollStatus.Status.debugMode)
       $('body').append('<p class="parallax-debug" style="border: 1px solid red;position: absolute;' + (_ScrollStatus.Status.direction === 'y' ? 'width' : 'height') + ': 100%;' + (_ScrollStatus.Status.direction === 'y' ? 'left' : 'top') + ': 0;' + '"></p>');
   };
+  /* timing */
   var Timing = new _ScrollTiming.ScrollTiming();
+  /* timing default options */
   $.parallaxTiming = function (ops) {
     Timing.setVal(ops);
   };
@@ -601,6 +611,7 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
         $('body > .parallax-debug').css(_ScrollStatus.Status.directionPositionName.toLocaleLowerCase(), timingLine);
     });
   };
+  /* speed */
   $.fn.parallaxSpeed = function (ops) {
     var $element = this;
     var style = ops.style || 'top';
@@ -642,6 +653,7 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
       });
     });
   };
+  /* fit */
   $.fn.parallaxFit = function (ops) {
     var Fit = new _ScrollFit.ScrollFit(this);
     if (ops['end'] !== undefined) {
@@ -680,12 +692,12 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
           var fromStyles = from.getValueAry();
           var toStyles = to.getValueAry();
           var values = [];
-          for (var i = 0; i < fromStyles.length; i++) {
-            var abs = Math.abs(fromStyles[i] - toStyles[i]);
-            var fixAbs = fromStyles[i] < toStyles[i] ? abs : -abs;
-            values[i] = _Util.easing[motion.easing](scrollPercent, fromStyles[i], fixAbs, 1);
+          for (var _i = 0; _i < fromStyles.length; _i++) {
+            var abs = Math.abs(fromStyles[_i] - toStyles[_i]);
+            var fixAbs = fromStyles[_i] < toStyles[_i] ? abs : -abs;
+            values[_i] = _Util.easing[motion.easing](scrollPercent, fromStyles[_i], fixAbs, 1);
             if (style.indexOf('background') >= 0)
-              values[i] = values[i] >= 1 ? parseInt(values[i]) : values[i] < 0 ? 0 : values[i];
+              values[_i] = values[_i] >= 1 ? parseInt(values[_i]) : values[_i] < 0 ? 0 : values[_i];
           }
           Fit.styleValues[style] = from.setValue(values);
         }
@@ -693,6 +705,7 @@ jqueryscrollParallaxjs = function (_ScrollStatus, _ScrollTiming, _ScrollFit, _Ut
       Fit.$element.css(Fit.styleValues);
     });
   };
+  /* event */
   _ScrollStatus.Status.$stage.on('scroll resize load', function () {
     _ScrollStatus.Status.update();
     _ScrollStatus.Status.functions.forEach(function (func) {

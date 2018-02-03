@@ -26,7 +26,7 @@ export class StyleValue {
 		});
 	};
 	getValueAry() {
-		var valueRegAry;
+		let valueRegAry;
 		let valueAry = [];
 		while ((valueRegAry = this.myRegExp.exec(this.value)) !== null) {
 			valueAry.push(Number(valueRegAry[1]));
@@ -41,19 +41,23 @@ export class StyleValue {
 	};
 }
 
-export var scrollPositionStringToNumber = (motionStart) => {
-	if(typeof motionStart === 'string') {
+export const scrollPositionStringToNumber = (motionStart) => {
+	let value;
+	if(motionStart === 'lastScrollPosition') {
+		value = Status.contentSize - Status.stageSize
+		console.log(Status.contentSize, Status.stageSize, value)
+	} else if(typeof motionStart === 'string') {
 		const i = motionStart.split(',');
-		var value = $(i[0]).offset()[Status.directionPositionName.toLocaleLowerCase()];
+		value = $(i[0]).offset()[Status.directionPositionName.toLocaleLowerCase()];
 		if(i[1]) value += parseInt(i[1]);
 	} else {
-		var value = motionStart;
+		value = motionStart;
 	}
 
 	return value;
 };
 
-export var easing = {
+export const easing = {
 	linear : function(t,b,c,d){return b+c*t},
 	easeInQuad:function(i,b,c,d){return c*(i/=d)*i+b;},
 	easeOutQuad:function(i,b,c,d){return -c*(i/=d)*(i-2)+b;},

@@ -1,10 +1,13 @@
 {
   "name": "jquery.scroll-parallax",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Implementing parallax effect by utilizing various events of scroll.",
   "author": {
     "name": "kamem",
     "url": "https://github.com/kamem"
+  },
+  "scripts": {
+    "watch": "$(npm bin)/gulp watch"
   },
   "repository": {
     "type": "git",
